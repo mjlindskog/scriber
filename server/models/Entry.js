@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const ScriberSchema = new Schema({
+const EntrySchema = new Schema({
     username: {
         type: String,
         trim: true,
@@ -30,6 +30,6 @@ const ScriberSchema = new Schema({
     }
 });
 
-const Scriber = mongoose.model("Scriber", ScriberSchema);
+const Entry = mongoose.model("Entry", EntrySchema);
 
-module.exports = Scriber;
+module.exports = Entry;

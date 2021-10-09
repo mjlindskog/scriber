@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const {ScriberModel} = require('../models/ScriberModel');
+const {Entry} = require('../models/ScriberModel');
 const scribeSeeds = require('./scribeSeeds.js');
 
 db.once('open', async () => {

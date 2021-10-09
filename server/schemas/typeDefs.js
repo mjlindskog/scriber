@@ -7,11 +7,11 @@ authorName: String
 }
 
 type Title {
+_id: ID
 title: String
 }
 
 type Body {
-_id: ID
 content: String
 }
 
@@ -39,6 +39,15 @@ type Query {
  likes: [Likes]
  views: [views]
  subject: [Subject]
+}
+
+type Mutation {
+    addUser( )
+    addEntry(username: String!, title: String!, body: String!, subject: String) : Entry
+    editEntry(title: String!, body: String!, subject: String!) : Entry
+    deleteEntry(titleId: ID!) : Entry
+    userLogin( )
+
 }
 `;
 
