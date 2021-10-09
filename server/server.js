@@ -4,7 +4,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
 const app = express()
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Apollo setup
 const server = new ApolloServer({
@@ -20,5 +20,6 @@ app.get('/', (req, res) => {
 db.once('open', () => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`GraphQL: http://localhost:${port}${server.graphqlPath}`)
 });
 });
