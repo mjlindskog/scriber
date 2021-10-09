@@ -1,4 +1,4 @@
-const {Scriber } = require('../models');
+const { Entry } = require('../models');
 
 const resolvers = {
 Query: {
@@ -22,7 +22,36 @@ views: async () => {
 },
 subject: async () => {
     return await Subject.find({}).populate('tag');
-}
+},
+},
+
+Mutation: {
+    addUser: async () => {
+// Add mutation for new users
+    },
+    addEntry: async ({username, title, body, subject}) => {
+        return Entry.create({ username, title, body, subject});
+    },
+    editEntry: async (titleId) => {
+        return Entry.findOneAndUpdate(
+            {_id: titleId},
+            {
+                $addToSet: {title: title, body: content, subject: tag}
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+    },
+    deleteEntry: async (titleId) => {
+        return Entry.findOneAndDelete({_id: titleId});
+    },
+    userLogin: async () => {
+// add mutation for user login
+    }
+
 }
 };
 
