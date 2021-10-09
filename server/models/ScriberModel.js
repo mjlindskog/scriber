@@ -23,6 +23,10 @@ const ScriberSchema = new Schema({
     timestamp: {
         type: Date,
         default: Date.now
+    },
+    subject: {
+        type: String,
+        trim: true
     }
 });
 
