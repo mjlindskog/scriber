@@ -1,22 +1,24 @@
 const express = require('express')
-const mongoose = require("mongoose")
+const { ApolloServer } = require('apollo-server-express');
+const { typeDefs, resolvers } = require('./schemas');
+const db = require('./config/connection');
+
 const app = express()
 const port = 3001;
 
-// Database setup
-const Scriber = require("./models/ScriberModel");
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/scriberdb", {
-  useNewUrlParser: true,
-  useFindAndModify: true
+// Apollo setup
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
 });
-
-// Scriber Routes
-app.use(require("./routes/ScriberRoutes.js"));
+server.applyMiddleware({app});
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+db.once('open', () => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-})
+});
+});
