@@ -22,8 +22,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="#">
+        Scriber
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -46,17 +46,22 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 10,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            border: 1,
+            borderColor: 'grey.500',
+            padding: '5rem',
+            borderRadius: '10px',
+            backgroundColor: 'white'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'grey.400' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -91,7 +96,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, borderRadius: '6px', zIndex: '0' }}
             >
               Sign In
             </Button>
