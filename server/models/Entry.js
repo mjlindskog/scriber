@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require('crypto');
 
 const Schema = mongoose.Schema;
 
@@ -29,7 +30,25 @@ const EntrySchema = new Schema({
     views: {
         type: Number,
         default: 0
+    },
+    hash: {
+        type: String,
+        //unique: true
     }
+});
+
+EntrySchema.pre('save', async function (next) {
+    let hashString = {
+        authors: this.authors,
+        title: this.title,
+        body: this.body,
+        subject: this.subject,
+        random: process.env.SECRET
+    }
+    hashString = JSON.stringify(hashString);
+    this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
+
+    next();
 });
 
 const Entry = mongoose.model("Entry", EntrySchema);

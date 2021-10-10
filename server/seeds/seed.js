@@ -17,8 +17,8 @@ db.once('open', async () => {
         console.log(seed);
         try {
             await Entry.create(seed);
-        } catch {
-            console.error(`Error at ${seed}`)
+        } catch (err) {
+            console.error(err)
         }
     }
 
@@ -26,8 +26,8 @@ db.once('open', async () => {
         console.log(user);
         try {
             await User.create(user);
-        } catch {
-            console.error(`Error at ${user}`)
+        } catch (err) {
+            console.error(err)
         }
     }
 

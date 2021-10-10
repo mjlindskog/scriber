@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 const { EntrySchema } = require('./Entry');
+const crypto = require('crypto');
 
 const userSchema = new Schema(
     {
@@ -21,7 +22,11 @@ const userSchema = new Schema(
         },
         savedEntrys: [EntrySchema],
         favoriteEntrys: [EntrySchema],
-        visitedEntrys: [EntrySchema]
+        visitedEntrys: [EntrySchema],
+        hash: {
+            type: String,
+            //unique: true
+        }
     },
     {
         toJSON: {
@@ -36,6 +41,16 @@ userSchema.pre('save', async function (next) {
         const saltRounds = 10;
         this.password = await bcrypt.hash(this.password, saltRounds);
     }
+    //console.log(this)
+
+
+    let hashString = {
+        username: this.username,
+        email: this.email,
+        random: process.env.SECRET
+    }
+    hashString = JSON.stringify(hashString);
+    this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
 
     next();
 });
