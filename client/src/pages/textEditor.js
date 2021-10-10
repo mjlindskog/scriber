@@ -27,6 +27,9 @@ export default function App() {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="md">
                 <CssBaseline />
+                <Typography>
+                    <h1>Write.</h1>
+                </Typography>
                 <Box
                     sx={{
                         marginTop: 10,

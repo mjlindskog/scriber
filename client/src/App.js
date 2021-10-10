@@ -14,13 +14,15 @@ import '@fontsource/roboto/700.css';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="text.secondary" align="center" sx={{
+      padding: '5rem'
+    }}>
       {'Copyright © '}
-      <Link color="inherit" href="#">
+      < Link color="inherit" href="#" >
         Scriber
-      </Link>{' '}
+      </ Link > {' '}
       {new Date().getFullYear()}.
-    </Typography>
+    </Typography >
   );
 }
 
@@ -29,6 +31,7 @@ export default function App() {
     <div>
       <NavBar />
       <TextEditor />
+      <Copyright />
     </div>
   );
 }
