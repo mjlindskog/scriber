@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 const resolvers = {
     Query: {
-        entry: async (entryID) => {
+        entry: async (parent, { entryID }) => {
             const foundEntry = await Entry.find({ entryID })
             if (!foundEntry) {
                 throw new AuthenticationError('No Entry Found 🥲');
@@ -36,10 +36,10 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addEntry: async ({ username, title, body, subject }) => {
+        addEntry: async (parent, { username, title, body, subject }) => {
             return Entry.create({ username, title, body, subject });
         },
-        editEntry: async (titleId) => {
+        editEntry: async (parent, { titleId }) => {
             return Entry.findOneAndUpdate(
                 { _id: titleId },
                 {
@@ -52,7 +52,7 @@ const resolvers = {
             );
 
         },
-        deleteEntry: async (titleId) => {
+        deleteEntry: async (parent, { titleId }) => {
             return Entry.findOneAndDelete({ _id: titleId });
         },
         userLogin: async (parent, { email, password }) => {
