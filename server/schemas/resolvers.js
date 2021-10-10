@@ -1,32 +1,29 @@
-const { Entry, User } = require('../models');
+const { Entry } = require('../models/Entry');
+const User = require('../models/User');
 
 const resolvers = {
     Query: {
-        author: async () => {
-            return await Author.find({}).populate('authorName');
+        entry: async (entryID) => {
+            const foundEntry = await Entry.find({ entryID })
+            if (!foundEntry) {
+                throw new AuthenticationError('No Entry Found 🥲');
+            } else {
+                return await Entry.find({ entryID });
+            }
         },
-        title: async () => {
-            return await Title.find({}).populate('title').sort({ dateScribed: -1 });
-        },
-        body: async () => {
-            return await Body.find({}).populate('content').sort({ dateScribed: -1 });
-        },
-        timestamp: async () => {
-            return await Timestamp.find({}).populate('dateScribed').sort({ dateScribed: -1 });
-        },
-        likes: async () => {
-            return await Likes.find({}).populate('count');
-        },
-        views: async () => {
-            return await Views.find({}).populate('count');
-        },
-        subject: async () => {
-            return await Subject.find({}).populate('tag');
+        user: async (parent, { username }) => {
+            const foundUser = await User.findOne(username);
+
+            if (!foundUser) {
+                throw new AuthenticationError('Something went wrong 🥲');
+            } else {
+                return foundUser;
+            }
         },
     },
 
     Mutation: {
-        addUser: async () => {
+        addUser: async (parent, { username, email, password }) => {
             const user = await User.create({
                 username,
                 email,
@@ -34,7 +31,7 @@ const resolvers = {
             });
 
             if (!user) {
-                return '404';
+                throw new AuthenticationError('Something went wrong 🥲');
             }
             const token = signToken(user);
             return { token, user };
@@ -58,17 +55,17 @@ const resolvers = {
         deleteEntry: async (titleId) => {
             return Entry.findOneAndDelete({ _id: titleId });
         },
-        userLogin: async () => {
+        userLogin: async (parent, { email, password }) => {
             // add mutation for user login
             const user = await User.findOne({ email });
             if (!user) {
-                return '404';
+                throw new AuthenticationError('Something went wrong 🥲');
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                return '404';
+                throw new AuthenticationError('Something went wrong 🥲');
             }
             const token = signToken(user);
             return { token, user };

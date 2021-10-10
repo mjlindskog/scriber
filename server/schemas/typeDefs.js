@@ -1,53 +1,42 @@
-const {gql} = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-type Author {
-_id: ID!
-authorName: String
-}
+    type User {
+        _id: ID
+        username: String!
+        email: String!
+        password: String!
+        savedEntrys: [Entry]
+        favoriteEntrys: [Entry]
+        visitedEntrys: [Entry]
+    }
 
-type Title {
-_id: ID
-title: String
-}
+    type Entry {
+        _id: ID
+        authors: [String]!
+        title: String!
+        body: String!
+        timestamp: Date
+        subject: String!
+        views: Number
+    }
 
-type Body {
-content: String
-}
-
-type Timestamp {
-dateScribed: Int
-}
-
-type Likes {
-count: Int
-}
-
-type Views {
-count: Int
-}
-
-type Subject {
-tag: String
-}
+    type Auth {
+        token: ID!
+        user: User
+    }
 
 type Query {
- author:[Author]
- title: [Title]
- body: [Body]
- timestamp: [Timestamp]
- likes: [Likes]
- views: [views]
- subject: [Subject]
+    getEntry(entryID: String!): Entry
+    getUser(username: String!): User
 }
 
 type Mutation {
-    addUser( )
+    addUser(username: String!, email: String!, password: String!): Auth
     addEntry(username: String!, title: String!, body: String!, subject: String) : Entry
     editEntry(title: String!, body: String!, subject: String!) : Entry
     deleteEntry(titleId: ID!) : Entry
-    userLogin( )
-
+    userLogin(email: String!, password: String!): Auth
 }
 `;
 

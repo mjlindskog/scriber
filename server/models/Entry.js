@@ -3,9 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const EntrySchema = new Schema({
-    username: {
-        type: String,
-        trim: true,
+    authors: {
+        type: Array,
         required: "Author name required"
     },
 
@@ -26,10 +25,18 @@ const EntrySchema = new Schema({
     },
     subject: {
         type: String,
-        trim: true
+        trim: true,
+        default: 'Unknown Subject'
+    },
+    views: {
+        type: Number,
+        default: 0
     }
 });
 
 const Entry = mongoose.model("Entry", EntrySchema);
 
-module.exports = Entry;
+module.exports = {
+    Entry,
+    EntrySchema
+}
