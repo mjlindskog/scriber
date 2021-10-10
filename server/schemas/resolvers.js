@@ -3,22 +3,29 @@ const User = require('../models/User');
 
 const resolvers = {
     Query: {
-        getEntry: async (parent, { entryID }) => {
-            const foundEntry = await Entry.find({ entryID })
+        getEntry: async (parent, { hash }) => {
+            const foundEntry = await Entry.find(hash)
             if (!foundEntry) {
                 throw new AuthenticationError('No Entry Found 🥲');
             } else {
                 return await Entry.find({ entryID });
             }
         },
-        getUser: async (parent, { username }) => {
-            const foundUser = await User.findOne(username);
+        getUser: async (parent, { hash }) => {
+            const foundUser = await User.findOne(hash);
 
             if (!foundUser) {
                 throw new AuthenticationError('Something went wrong 🥲');
             } else {
                 return foundUser;
             }
+        },
+        me: async (parent, args, context) => {
+            if (context.user) {
+                const res = await getSingleUserController({ _id: context.user._id });
+                return res
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
     },
 
@@ -37,11 +44,16 @@ const resolvers = {
             return { token, user };
         },
         addEntry: async (parent, { username, title, body, subject }) => {
-            return Entry.create({ username, title, body, subject });
+            const newEntry = await Entry.create({ username, title, body, subject });
+
+            if (!newEntry) {
+                console.error('Error Saving Entry 🥲')
+            }
+            return
         },
-        editEntry: async (parent, { titleId }) => {
+        editEntry: async (parent, { title, body, subject, hash }) => {
             return Entry.findOneAndUpdate(
-                { _id: titleId },
+                { hash: hash },
                 {
                     $addToSet: { title: title, body: content, subject: tag }
                 },
@@ -52,8 +64,8 @@ const resolvers = {
             );
 
         },
-        deleteEntry: async (parent, { titleId }) => {
-            return Entry.findOneAndDelete({ _id: titleId });
+        deleteEntry: async (parent, { hash }) => {
+            return Entry.findOneAndDelete({ hash: hash });
         },
         userLogin: async (parent, { email, password }) => {
             // add mutation for user login

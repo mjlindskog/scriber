@@ -9,6 +9,7 @@ const typeDefs = gql`
         savedEntrys: [Entry]
         favoriteEntrys: [Entry]
         visitedEntrys: [Entry]
+        hash: String
     }
 
     type Entry {
@@ -19,6 +20,7 @@ const typeDefs = gql`
         timestamp: String
         subject: String!
         views: String
+        hash: String
     }
 
     type Auth {
@@ -27,15 +29,16 @@ const typeDefs = gql`
     }
 
 type Query {
-    getEntry(entryID: String!): Entry
-    getUser(username: String!): User
+    getEntry(hash: String!): Entry
+    getUser(hash: String!): User
+    me: User
 }
 
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     addEntry(username: String!, title: String!, body: String!, subject: String) : Entry
-    editEntry(title: String!, body: String!, subject: String!) : Entry
-    deleteEntry(titleId: ID!) : Entry
+    editEntry(title: String!, body: String!, subject: String!, hash: String) : Entry
+    deleteEntry(hash: String): Entry
     userLogin(email: String!, password: String!): Auth
 }
 `;
