@@ -7,13 +7,11 @@ const EntrySchema = new Schema({
         type: Array,
         required: "Author name required"
     },
-
     title: {
         type: String,
         trim: true,
         required: "Please give your entry a title"
     },
-
     body: {
         type: String,
         trim: true,

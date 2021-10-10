@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 const resolvers = {
     Query: {
-        entry: async (parent, { entryID }) => {
+        getEntry: async (parent, { entryID }) => {
             const foundEntry = await Entry.find({ entryID })
             if (!foundEntry) {
                 throw new AuthenticationError('No Entry Found 🥲');
@@ -11,7 +11,7 @@ const resolvers = {
                 return await Entry.find({ entryID });
             }
         },
-        user: async (parent, { username }) => {
+        getUser: async (parent, { username }) => {
             const foundUser = await User.findOne(username);
 
             if (!foundUser) {

@@ -16,9 +16,9 @@ const typeDefs = gql`
         authors: [String]!
         title: String!
         body: String!
-        timestamp: Date
+        timestamp: String
         subject: String!
-        views: Number
+        views: String
     }
 
     type Auth {
