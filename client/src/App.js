@@ -5,7 +5,12 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
-import textEditor from './pages/textEditor';
+import TextEditor from './pages/textEditor';
+import NavBar from './components/NavBar'
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 function Copyright() {
   return (
@@ -21,6 +26,9 @@ function Copyright() {
 
 export default function App() {
   return (
-    <textEditor />
+    <div>
+      <NavBar />
+      <TextEditor />
+    </div>
   );
 }
