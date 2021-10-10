@@ -7,6 +7,7 @@ import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import TextEditor from './pages/textEditor';
 import NavBar from './components/NavBar'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -28,10 +29,20 @@ function Copyright() {
 
 export default function App() {
   return (
-    <div>
+    <main>
       <NavBar />
-      <TextEditor />
+      <Router>
+        <Route exact path="/">
+          <TextEditor />
+        </Route>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+      </Router>
       <Copyright />
-    </div>
+    </main>
   );
 }
