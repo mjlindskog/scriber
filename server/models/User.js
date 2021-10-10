@@ -20,12 +20,11 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        savedEntrys: [EntrySchema],
-        favoriteEntrys: [EntrySchema],
-        visitedEntrys: [EntrySchema],
+        savedEntries: [String],
+        favoriteEntries: [String],
+        visitedEntries: [String],
         hash: {
             type: String,
-            //unique: true
         }
     },
     {
@@ -42,16 +41,15 @@ userSchema.pre('save', async function (next) {
         this.password = await bcrypt.hash(this.password, saltRounds);
     }
     //console.log(this)
-
-
-    let hashString = {
-        username: this.username,
-        email: this.email,
-        random: process.env.SECRET
+    if (this.isNew) {
+        let hashString = {
+            username: this.username,
+            email: this.email,
+            random: process.env.SECRET
+        }
+        hashString = JSON.stringify(hashString);
+        this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
     }
-    hashString = JSON.stringify(hashString);
-    this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
-
     next();
 });
 

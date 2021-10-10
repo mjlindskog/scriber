@@ -38,16 +38,17 @@ const EntrySchema = new Schema({
 });
 
 EntrySchema.pre('save', async function (next) {
-    let hashString = {
-        authors: this.authors,
-        title: this.title,
-        body: this.body,
-        subject: this.subject,
-        random: process.env.SECRET
+    if (this.isNew) {
+        let hashString = {
+            authors: this.authors,
+            title: this.title,
+            body: this.body,
+            subject: this.subject,
+            random: process.env.SECRET
+        }
+        hashString = JSON.stringify(hashString);
+        this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
     }
-    hashString = JSON.stringify(hashString);
-    this.hash = crypto.createHash('sha256', process.env.SECRET).update(hashString).digest('hex');
-
     next();
 });
 
