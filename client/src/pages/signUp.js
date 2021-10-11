@@ -42,34 +42,25 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    try {
-      let firstName = data.get('firstName');
-      let lastName = data.get('lastName');
-      let username = firstName + ' ' + lastName;
-      const response = await addUser({
-        variables: {
-          addUserUsername: username,
-          addUserEmail: data.get('email'),
-          addUserPassword: data.get('password'),
-        }
-      });
-      //console.log(response.data.login)
-      if (!response.data.login.token) {
-        throw new Error('something went wrong!');
+    let firstName = data.get('firstName');
+    let lastName = data.get('lastName');
+    let username = firstName + ' ' + lastName;
+    const response = await addUser({
+      variables: {
+        username: username,
+        email: data.get('email'),
+        password: data.get('password'),
       }
-      console.log(response);
-      const { token, user } = response.data.signup;
-      //console.log(user);
-      Auth.login(token);
-      console.log(user);
-    } catch (err) {
-      const output = JSON.stringify(err);
-      console.log(output)
+    });
+    //console.log(response.data.login)
+    if (!response.data.addUser.token) {
+      throw new Error('something went wrong!');
     }
+    console.log(response);
+    const { token, user } = response.data.addUser;
+    //console.log(user);
+    Auth.login(token);
+    console.log(user);
   };
 
   return (
