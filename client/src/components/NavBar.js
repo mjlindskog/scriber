@@ -22,6 +22,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import CreateIcon from '@mui/icons-material/Create';
 import { useHistory } from 'react-router-dom';
 import Link from '@mui/material/Link';
+import Auth from '../utils/auth';
+import LoginIcon from '@mui/icons-material/Login';
 
 const drawerWidth = 240;
 
@@ -103,84 +105,143 @@ export default function MiniDrawer() {
         setOpen(false);
     };
 
-    return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open} elevation={0} sx={{ background: "white", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-                <Toolbar>
-                    <IconButton
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: '36px',
-                            ...(open && { display: 'none' }),
-                            color: 'black'
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ color: 'black' }}>
-                        Scriber
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <Link href='/'>
-                        <ListItem button key={'Home'}>
-                            <ListItemIcon>
-                                <HomeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Home'} />
-                        </ListItem>
-                    </ Link>
-                    <Link href='/favorites'>
-                        <ListItem button key={'Favorites'}>
-                            <ListItemIcon>
-                                <StarIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Favorites'} />
-                        </ListItem>
-                    </ Link>
-                    <Link href='/write'>
-                        <ListItem button key={'Write'}>
-                            <ListItemIcon>
-                                <CreateIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Write'} />
-                        </ListItem>
-                    </ Link>
-                </List>
-                <Divider />
-                <List>
-                    <Link href='/profile'>
-                        <ListItem button key={'Profile'}>
-                            <ListItemIcon>
-                                <AccountCircleIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Profile'} />
-                        </ListItem>
-                    </ Link>
-                    <Link href='#'>
-                        <ListItem button key={'Sign Out'}>
-                            <ListItemIcon>
-                                <LogoutIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Sign Out'} />
-                        </ListItem>
-                    </ Link>
-                </List>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
-            </Box>
-        </Box >
-    );
+    if (Auth.getToken()) {
+        return (
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "white", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                    <Toolbar>
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
+                                color: 'black'
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" sx={{ color: 'black' }}>
+                            Scriber
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider />
+                    <List>
+                        <Link href='/'>
+                            <ListItem button key={'Home'}>
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Home'} />
+                            </ListItem>
+                        </ Link>
+                        <Link href='/favorites'>
+                            <ListItem button key={'Favorites'}>
+                                <ListItemIcon>
+                                    <StarIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Favorites'} />
+                            </ListItem>
+                        </ Link>
+                        <Link href='/write'>
+                            <ListItem button key={'Write'}>
+                                <ListItemIcon>
+                                    <CreateIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Write'} />
+                            </ListItem>
+                        </ Link>
+                    </List>
+                    <Divider />
+                    <List>
+                        <Link href='/profile'>
+                            <ListItem button key={'Profile'}>
+                                <ListItemIcon>
+                                    <AccountCircleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Profile'} />
+                            </ListItem>
+                        </ Link>
+                        <Link href='#'>
+                            <ListItem button key={'Sign Out'}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Sign Out'} />
+                            </ListItem>
+                        </ Link>
+                    </List>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <DrawerHeader />
+                </Box>
+            </Box >
+        );
+    } else {
+        return (
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "white", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                    <Toolbar>
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
+                                color: 'black'
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" sx={{ color: 'black' }}>
+                            Scriber
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        </IconButton>
+                    </DrawerHeader>
+                    <Divider />
+                    <List>
+                        <Link href='/'>
+                            <ListItem button key={'Home'}>
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Home'} />
+                            </ListItem>
+                        </ Link>
+                    </List>
+                    <Divider />
+                    <List>
+                        <Link href='/signin'>
+                            <ListItem button key={'Sign In'}>
+                                <ListItemIcon>
+                                    <LoginIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Sign In'} />
+                            </ListItem>
+                        </ Link>
+                    </List>
+                </Drawer>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <DrawerHeader />
+                </Box>
+            </Box >
+        );
+    }
 }
