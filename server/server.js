@@ -39,7 +39,7 @@ async function startApolloServer(typeDefs, resolvers) {
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    context: authMiddleware
+    context: authMiddleware,
   });
   await server.start();
   server.applyMiddleware({ app });

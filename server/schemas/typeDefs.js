@@ -6,21 +6,22 @@ const typeDefs = gql`
         username: String!
         email: String!
         password: String!
-        savedEntrys: [Entry]
-        favoriteEntrys: [Entry]
-        visitedEntrys: [Entry]
+        savedEntries: [String]
+        favoriteEntries: [String]
+        visitedEntries: [String]
         hash: String
     }
 
     type Entry {
         _id: ID
-        authors: [String]!
-        title: String!
-        body: String!
+        authors: [String]
+        title: String
+        body: String
         timestamp: String
-        subject: String!
+        subject: String
         views: String
         hash: String
+        public: Boolean
     }
 
     type Auth {
@@ -32,6 +33,7 @@ type Query {
     getEntry(hash: String!): Entry
     getUser(hash: String!): User
     me: User
+    getTopFive: [Entry]
 }
 
 type Mutation {

@@ -1,31 +1,84 @@
 const { Entry } = require('../models/Entry');
 const User = require('../models/User');
+const redis = require('../config/redis')
+
+const cacheLength = 3600
 
 const resolvers = {
     Query: {
         getEntry: async (parent, { hash }) => {
-            const foundEntry = await Entry.find(hash)
+            let foundEntry = await redis.get(hash, (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    return result
+                }
+            })
             if (!foundEntry) {
-                throw new AuthenticationError('No Entry Found 🥲');
+                foundEntry = await Entry.findOne({ 'hash': hash })
+                if (!foundEntry) {
+                    throw new AuthenticationError('No Entry Found 🥲');
+                } else {
+                    redis.set(foundEntry.hash, JSON.stringify(foundEntry), 'ex', cacheLength)
+                    return foundEntry
+                }
             } else {
-                return await Entry.find({ entryID });
+                foundEntry = JSON.parse(foundEntry);
+                return foundEntry
             }
         },
         getUser: async (parent, { hash }) => {
-            const foundUser = await User.findOne(hash);
+            let foundUser = await redis.get(hash, (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    return result
+                }
+            })
 
             if (!foundUser) {
-                throw new AuthenticationError('Something went wrong 🥲');
+                foundUser = await User.findOne({ 'hash': hash }).select('-password, -email');
+
+                if (!foundUser) {
+                    throw new AuthenticationError('Something went wrong 🥲');
+                } else {
+                    redis.set(foundUser.hash, JSON.stringify(foundUser), 'ex', cacheLength)
+                    return foundUser;
+                }
             } else {
+                foundUser = JSON.parse(foundUser);
                 return foundUser;
             }
         },
         me: async (parent, args, context) => {
             if (context.user) {
-                const res = await getSingleUserController({ _id: context.user._id });
+                const res = await User.findOne({ hash: context.user.hash });
                 return res
             }
             throw new AuthenticationError('You need to be logged in!');
+        },
+        getTopFive: async (parent, args, context) => {
+            let res = await redis.get('topFive', (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    return result
+                }
+            })
+
+            if (!res) {
+                res = await Entry.find({ "public": true });
+                if (!res) {
+                    console.error(err)
+                    return
+                } else {
+                    redis.set('topFive', JSON.stringify(res), 'ex', cacheLength);
+                    return res
+                }
+            } else {
+                res = JSON.parse(res);
+                return res;
+            }
         },
     },
 
@@ -49,11 +102,11 @@ const resolvers = {
             if (!newEntry) {
                 console.error('Error Saving Entry 🥲')
             }
-            return
+            return newEntry
         },
         editEntry: async (parent, { title, body, subject, hash }) => {
-            return Entry.findOneAndUpdate(
-                { hash: hash },
+            const updated = await Entry.findOneAndUpdate(
+                { 'hash': hash },
                 {
                     $addToSet: { title: title, body: content, subject: tag }
                 },
@@ -62,14 +115,21 @@ const resolvers = {
                     runValidators: true,
                 }
             );
-
+            if (!updated) {
+                throw new AuthenticationError('Something went wrong 🥲');
+            }
+            return updated
         },
         deleteEntry: async (parent, { hash }) => {
-            return Entry.findOneAndDelete({ hash: hash });
+            const deleted = await Entry.findOneAndDelete({ 'hash': hash });
+            if (!deleted) {
+                throw new AuthenticationError('Something went wrong 🥲');
+            }
+            return deleted
         },
         userLogin: async (parent, { email, password }) => {
             // add mutation for user login
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ email: email });
             if (!user) {
                 throw new AuthenticationError('Something went wrong 🥲');
             }
@@ -81,8 +141,7 @@ const resolvers = {
             }
             const token = signToken(user);
             return { token, user };
-        }
-
+        },
     }
 };
 

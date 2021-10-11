@@ -1,33 +1,38 @@
 const seed = [
     {
-        "authors": ["98ce58ced3b7efdcdfbab848ba7bee389687d37c46d85cededb9d408dab159f8"],
+        "authors": ["7be11dac1d70842458a9c079d4441af2c7827e65c1ccb5eabba778140a4e1688"],
         "title": "First post",
         "body": "The quick brown fox jumps over the lazy dog.",
         "subject": "animals",
+        "public": true
     },
     {
-        "authors": ["452e26dd8c857dd7089092ab78af88ca3da03b150045d5a91bd954db89afd118"],
+        "authors": ["c72476203fa9450fb16e81dbaa02679f254c8a8dd1a2ef88f5c0c01c230ffe23"],
         "title": "Coding",
         "body": "Coding is the coolest",
-        "subject": "technology"
+        "subject": "technology",
+        "public": true
     },
     {
-        "authors": ["6a695da8e0494f45fee096378780242c9ab7ce7f65feed5aabe7331752bc6eb2"],
+        "authors": ["df840c0ce0a04bcb83dce0b22657409c27e2211f0a3a34edf55860329eb5f100"],
         "title": "Generic Title",
         "body": "Generic Body",
-        "subject": "general"
+        "subject": "general",
+        "public": true
     },
     {
-        "authors": ["59090b666ca3db64f1373cb552dd90a8d1a4ad5688983560421342fe849f6dcc"],
+        "authors": ["e97d974693c592b3df920f01dab5b4af6edd46409b6b486695900b1394ebbb35"],
         "title": "I Love Scriber",
         "body": "It's the coolest app in the world.  Love the text to speech functionality!",
-        "subject": "technology"
+        "subject": "technology",
+        "public": true
     },
     {
-        "authors": ["1c111a1b91674c5daae46b08d94c4aaf6f0d56ed26b41c649d15701da748d6d2"],
+        "authors": ["5eb32e40d06709ea997b579a2b43dc02a685b611f1a607957d6cddbc1628083b"],
         "title": "Influencer",
         "body": "This account, as with all others, is only for helping convince me that people actually care what I have to say.",
-        "subject": "general"
+        "subject": "general",
+        "public": true
     },
 ]
 

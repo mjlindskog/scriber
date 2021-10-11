@@ -34,6 +34,10 @@ const EntrySchema = new Schema({
     hash: {
         type: String,
         //unique: true
+    },
+    public: {
+        type: Boolean,
+        default: false
     }
 });
 

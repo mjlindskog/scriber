@@ -12,29 +12,21 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useMutation } from '@apollo/client';
+import { USER_LOGIN } from '../utils/mutations';
+import Auth from '../utils/auth';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="#">
-        Scribler
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
+
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const [loginUser, { error, data }] = useMutation(USER_LOGIN);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
@@ -42,6 +34,26 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    try {
+      const response = await loginUser({
+        variables: {
+          loginEmail: data.get('email'),
+          loginPassword: data.get('password'),
+        }
+      });
+      //console.log(response.data.login)
+      if (!response.data.login.token) {
+        throw new Error('something went wrong!');
+      }
+
+      const { token, user } = response.data.login;
+      //console.log(user);
+      Auth.login(token);
+      console.log(user);
+    } catch (err) {
+      const output = JSON.stringify(err);
+      console.log(output)
+    }
   };
 
   return (

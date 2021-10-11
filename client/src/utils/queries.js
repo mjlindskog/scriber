@@ -1,34 +1,36 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ENTRIES = gql`
-    query Query($getEntryEntryId: String!) {
-        getEntry(entryID: $getEntryEntryId) {
-            _id
+    query Query($hash: String!) {
+        getEntry(hash: $hash) {
             authors
             title
             body
-            timestamp
             subject
+            timestamp
             views
+            public
         }
     }
 `
 
 export const QUERY_USERS = gql`
-    query Query($getUserUsername: String!) {
-        getUser(username: $getUserUsername) {
-            _id
+    query Query($hash: String!) {
+        getUser(hash: $hash) {
+            username
+            favoriteEntrys
+        }
+    }
+`
+
+export const ME = gql`
+    query Query {
+        me {
             username
             email
-            savedEntrys {
-            _id
-            }
-            favoriteEntrys {
-            _id
-            }
-            visitedEntrys {
-            _id
-            }
+            savedEntrys
+            favoriteEntrys
+            visitedEntrys
         }
     }
 `
