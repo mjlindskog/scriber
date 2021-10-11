@@ -8,6 +8,7 @@ const cacheLength = 3600
 const resolvers = {
     Query: {
         getEntry: async (parent, { hash }) => {
+            console.log(hash);
             let foundEntry = await redis.get(hash, (err, result) => {
                 if (err) {
                     console.error(err);
@@ -20,6 +21,9 @@ const resolvers = {
                 if (!foundEntry) {
                     throw new AuthenticationError('No Entry Found 🥲');
                 } else {
+                    let author = foundEntry.authors[0]
+                    author = await User.findOne({ 'hash': author })
+                    foundEntry.authors[0] = author.username
                     redis.set(foundEntry.hash, JSON.stringify(foundEntry), 'ex', cacheLength)
                     return foundEntry
                 }
