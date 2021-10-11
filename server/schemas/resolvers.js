@@ -56,7 +56,7 @@ const resolvers = {
         me: async (parent, args, context) => {
             console.log(context.user);
             if (context.user) {
-                const res = await User.findOne({ hash: context.user.hash });
+                const res = await User.findOne({ email: context.user.email });
                 return res
             }
             console.error('Authentication error')

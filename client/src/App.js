@@ -9,6 +9,7 @@ import TextEditor from './pages/textEditor';
 import NavBar from './components/NavBar'
 import HomePage from './pages/home'
 import Profile from './pages/profile'
+import Favorites from './pages/favorites'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -48,6 +49,9 @@ export default function App() {
         </Route>
         <Route exact path="/profile">
           <Profile />
+        </Route>
+        <Route exact path="/favorites">
+          <Favorites />
         </Route>
       </Router>
       <Copyright />

@@ -50,7 +50,7 @@ function ArticleAccordion(article) {
     )
 }
 
-export default function HomePage() {
+export default function FavoritePage() {
     const { loading, error, data } = useQuery(ME)
     if (loading) {
         return (
@@ -76,13 +76,13 @@ export default function HomePage() {
     //const topFive = data.getTopFive
     //console.log(topFive);
     //console.log(data.me);
-    let topFive = data.me.savedEntries
+    let topFive = data.me.favoriteEntries
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <h1>{data.me.username}</h1>
-                <h2>Here are your thoughts...</h2>
+                <h2>Here are your favorites...</h2>
                 {topFive.map((article) =>
                     <ArticleAccordion article={article} />
                 )}

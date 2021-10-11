@@ -141,7 +141,7 @@ export default function MiniDrawer() {
                             <ListItemText primary={'Home'} />
                         </ListItem>
                     </ Link>
-                    <Link href='#'>
+                    <Link href='/favorites'>
                         <ListItem button key={'Favorites'}>
                             <ListItemIcon>
                                 <StarIcon />
