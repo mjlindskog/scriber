@@ -24,15 +24,14 @@ export const QUERY_USERS = gql`
 `
 
 export const ME = gql`
-    query Query {
-        me {
-            username
-            email
-            savedEntrys
-            favoriteEntrys
-            visitedEntrys
-        }
-    }
+query Query {
+  me {
+    username
+    savedEntries
+    favoriteEntries
+    visitedEntries
+  }
+}
 `
 
 export const TOP_FIVE = gql`

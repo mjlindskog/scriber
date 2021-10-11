@@ -54,11 +54,12 @@ const resolvers = {
             }
         },
         me: async (parent, args, context) => {
+            console.log(context.user);
             if (context.user) {
                 const res = await User.findOne({ hash: context.user.hash });
                 return res
             }
-            throw new AuthenticationError('You need to be logged in!');
+            console.error('Authentication error')
         },
         getTopFive: async (parent, args, context) => {
             let res = await redis.get('topFive', (err, result) => {

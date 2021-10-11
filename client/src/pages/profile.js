@@ -73,8 +73,9 @@ export default function HomePage() {
             </ThemeProvider>
         )
     }
-    const topFive = data.getTopFive
-    console.log(topFive);
+    //const topFive = data.getTopFive
+    //console.log(topFive);
+    let topFive = ['1', '2', '3', '4', '5']
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
