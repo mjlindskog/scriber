@@ -7,6 +7,7 @@ import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import TextEditor from './pages/textEditor';
 import NavBar from './components/NavBar'
+import HomePage from './pages/home'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -33,6 +34,9 @@ export default function App() {
       <NavBar />
       <Router>
         <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/write">
           <TextEditor />
         </Route>
         <Route exact path="/signin">

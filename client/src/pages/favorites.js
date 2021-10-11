@@ -59,7 +59,7 @@ function ArticleAccordion(article) {
     )
 }
 
-export default function HomePage() {
+export default function FavoritePage() {
     const { loading, error, data } = useQuery(TOP_FIVE)
     if (loading) {
         return (
@@ -88,8 +88,7 @@ export default function HomePage() {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
-                <h1>Welcome!</h1>
-                <h2>Check out these stories...</h2>
+                <h1>Your Favorites</h1>
                 {topFive.map((article) =>
                     <ArticleAccordion article={article} />
                 )}

@@ -59,10 +59,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 
-userSchema.virtual('entryCount').get(function () {
-    return this.savedEntries.length;
-});
-
 const User = model('User', userSchema);
 
 module.exports = User;

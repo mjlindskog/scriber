@@ -40,13 +40,15 @@ const resolvers = {
                 foundUser = await User.findOne({ 'hash': hash }).select('-password, -email');
 
                 if (!foundUser) {
-                    throw new AuthenticationError('Something went wrong 🥲');
+                    console.error('No user found')
                 } else {
                     redis.set(foundUser.hash, JSON.stringify(foundUser), 'ex', cacheLength)
+                    console.log(foundUser);
                     return foundUser;
                 }
             } else {
                 foundUser = JSON.parse(foundUser);
+                console.log(foundUser);
                 return foundUser;
             }
         },
@@ -67,12 +69,23 @@ const resolvers = {
             })
 
             if (!res) {
-                res = await Entry.find({ "public": true });
+                res = await Entry.find({ "public": true }).sort('views').exec();
+                let arr = []
+                for (let i = 0; i < 5; i++) {
+                    let newRes = res[i]
+                    console.log(newRes);
+                    let newAuthor = await User.findOne({ "hash": newRes.authors[0] }).select('username')
+
+                    newAuthor = newAuthor.username
+                    newRes.authors[0] = newAuthor
+                    arr.push(newRes);
+                }
                 if (!res) {
                     console.error(err)
                     return
                 } else {
-                    redis.set('topFive', JSON.stringify(res), 'ex', cacheLength);
+                    //console.log(arr);
+                    redis.set('topFive', JSON.stringify(arr), 'ex', cacheLength);
                     return res
                 }
             } else {

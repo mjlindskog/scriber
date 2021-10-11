@@ -34,3 +34,16 @@ export const ME = gql`
         }
     }
 `
+
+export const TOP_FIVE = gql`
+query Query {
+  getTopFive {
+    authors
+    title
+    timestamp
+    subject
+    views
+    hash
+  }
+}
+`
