@@ -1,42 +1,60 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import * as React from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import SignIn from './pages/signIn';
+import SignUp from './pages/signUp';
+import TextEditor from './pages/textEditor';
+import NavBar from './components/NavBar'
+import HomePage from './pages/home'
+import Profile from './pages/profile'
+import Favorites from './pages/favorites'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-function App() {
+function Copyright() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <Typography variant="body2" color="text.secondary" align="center" sx={{
+      padding: '5rem'
+    }}>
+      {'Copyright © '}
+      < Link color="inherit" href="#" >
+        Scriber
+      </ Link > {' '}
+      {new Date().getFullYear()}.
+    </Typography >
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <main>
+      <NavBar />
+      <Router>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/write">
+          <TextEditor />
+        </Route>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/favorites">
+          <Favorites />
+        </Route>
+      </Router>
+      <Copyright />
+    </main>
+  );
+}

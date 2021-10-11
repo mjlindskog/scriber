@@ -1,53 +1,47 @@
-const {gql} = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-type Author {
-_id: ID!
-authorName: String
-}
+    type User {
+        _id: ID
+        username: String!
+        email: String!
+        password: String!
+        savedEntries: [String]
+        favoriteEntries: [String]
+        visitedEntries: [String]
+        hash: String
+    }
 
-type Title {
-_id: ID
-title: String
-}
+    type Entry {
+        _id: ID
+        authors: [String]
+        title: String
+        body: String
+        timestamp: String
+        subject: String
+        views: String
+        hash: String
+        public: Boolean
+    }
 
-type Body {
-content: String
-}
-
-type Timestamp {
-dateScribed: Int
-}
-
-type Likes {
-count: Int
-}
-
-type Views {
-count: Int
-}
-
-type Subject {
-tag: String
-}
+    type Auth {
+        token: ID!
+        user: User
+    }
 
 type Query {
- author:[Author]
- title: [Title]
- body: [Body]
- timestamp: [Timestamp]
- likes: [Likes]
- views: [views]
- subject: [Subject]
+    getEntry(hash: String!): Entry
+    getUser(hash: String!): User
+    me: User
+    getTopFive: [Entry]
 }
 
 type Mutation {
-    addUser( )
+    addUser(username: String!, email: String!, password: String!): Auth
     addEntry(username: String!, title: String!, body: String!, subject: String) : Entry
-    editEntry(title: String!, body: String!, subject: String!) : Entry
-    deleteEntry(titleId: ID!) : Entry
-    userLogin( )
-
+    editEntry(title: String!, body: String!, subject: String!, hash: String) : Entry
+    deleteEntry(hash: String): Entry
+    userLogin(email: String!, password: String!): Auth
 }
 `;
 
