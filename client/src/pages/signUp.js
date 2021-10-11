@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -35,14 +38,38 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    try {
+      let firstName = data.get('firstName');
+      let lastName = data.get('lastName');
+      let username = firstName + ' ' + lastName;
+      const response = await addUser({
+        variables: {
+          addUserUsername: username,
+          addUserEmail: data.get('email'),
+          addUserPassword: data.get('password'),
+        }
+      });
+      //console.log(response.data.login)
+      if (!response.data.login.token) {
+        throw new Error('something went wrong!');
+      }
+      console.log(response);
+      const { token, user } = response.data.signup;
+      //console.log(user);
+      Auth.login(token);
+      console.log(user);
+    } catch (err) {
+      const output = JSON.stringify(err);
+      console.log(output)
+    }
   };
 
   return (

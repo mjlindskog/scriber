@@ -7,6 +7,12 @@ export const ADD_USER = gql`
             user {
             username
             _id
+            hash
+            password
+            email
+            favoriteEntries
+            visitedEntries
+            savedEntries
             }
         }
     }

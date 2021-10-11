@@ -1,6 +1,7 @@
 const { Entry } = require('../models/Entry');
 const User = require('../models/User');
 const redis = require('../config/redis')
+const { signToken } = require('../utils/auth');
 
 const cacheLength = 3600
 
@@ -102,7 +103,7 @@ const resolvers = {
                 email,
                 password
             });
-
+            console.log(user);
             if (!user) {
                 throw new AuthenticationError('Something went wrong 🥲');
             }

@@ -1,21 +1,12 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TOP_FIVE, QUERY_USERS } from './../utils/queries';
+import { TOP_FIVE, ME } from './../utils/queries';
 import { useQuery } from '@apollo/client'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import '@fontsource/roboto/300.css';
@@ -59,8 +50,8 @@ function ArticleAccordion(article) {
     )
 }
 
-export default function FavoritePage() {
-    const { loading, error, data } = useQuery(TOP_FIVE)
+export default function HomePage() {
+    const { loading, error, data } = useQuery(ME)
     if (loading) {
         return (
             <ThemeProvider theme={theme}>
@@ -88,7 +79,8 @@ export default function FavoritePage() {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
-                <h1>Your Favorites</h1>
+                <h1>Name</h1>
+                <h2>Here are your thoughts...</h2>
                 {topFive.map((article) =>
                     <ArticleAccordion article={article} />
                 )}

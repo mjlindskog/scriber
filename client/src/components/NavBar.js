@@ -22,6 +22,12 @@ import StarIcon from '@mui/icons-material/Star';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CreateIcon from '@mui/icons-material/Create';
+import { useHistory } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import {
+    Redirect
+} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -91,6 +97,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MiniDrawer() {
+    let history = useHistory();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -132,36 +139,49 @@ export default function MiniDrawer() {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Home', 'Favorites', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
+                    <Link href='/'>
+                        <ListItem button key={'Home'}>
                             <ListItemIcon>
-                                {
-                                    index === 0 &&
-                                    <HomeIcon />
-                                }
-                                {
-                                    index === 1 &&
-                                    <StarIcon />
-                                }
-                                {
-                                    index === 2 &&
-                                    <SaveAltIcon />
-                                }
+                                <HomeIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={'Home'} />
                         </ListItem>
-                    ))}
+                    </ Link>
+                    <Link href='#'>
+                        <ListItem button key={'Favorites'}>
+                            <ListItemIcon>
+                                <StarIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Favorites'} />
+                        </ListItem>
+                    </ Link>
+                    <Link href='/write'>
+                        <ListItem button key={'Write'}>
+                            <ListItemIcon>
+                                <CreateIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Write'} />
+                        </ListItem>
+                    </ Link>
                 </List>
                 <Divider />
                 <List>
-                    {['Profile', 'Logout'].map((text, index) => (
-                        <ListItem button key={text}>
+                    <Link href='/profile'>
+                        <ListItem button key={'Profile'}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
+                                <AccountCircleIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={'Profile'} />
                         </ListItem>
-                    ))}
+                    </ Link>
+                    <Link href='#'>
+                        <ListItem button key={'Sign Out'}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Sign Out'} />
+                        </ListItem>
+                    </ Link>
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
