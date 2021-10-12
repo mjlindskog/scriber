@@ -59,13 +59,17 @@ export const DELETE_ENTRY = gql`
 `
 
 export const USER_LOGIN = gql`
-    mutation UserLoginMutation($userLoginEmail: String!, $userLoginPassword: String!) {
-        userLogin(email: $userLoginEmail, password: $userLoginPassword) {
-            token
-            user {
-            _id
-            username
-            }
-        }
+mutation Mutation($email: String!, $password: String!) {
+  userLogin(email: $email, password: $password) {
+    token
+    user {
+      username
+      email
+      savedEntries
+      favoriteEntries
+      visitedEntries
+      hash
     }
+  }
+}
 `
