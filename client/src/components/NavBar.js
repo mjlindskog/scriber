@@ -172,7 +172,7 @@ export default function MiniDrawer() {
                             </ListItem>
                         </ Link>
                         <Link href='#'>
-                            <ListItem button key={'Sign Out'}>
+                            <ListItem button key={'Sign Out'} onClick={Auth.logout}>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>
