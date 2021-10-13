@@ -17,14 +17,15 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
 `
 
 export const ADD_ENTRY = gql`
-mutation AddEntryMutation($username: String!, $title: String!, $body: String!, $subject: String) {
-  addEntry(username: $username, title: $title, body: $body, subject: $subject) {
+mutation Mutation($authors: String!, $title: String!, $body: String!, $subject: String) {
+  addEntry(authors: $authors, title: $title, body: $body, subject: $subject) {
     authors
     title
     body
     timestamp
     subject
     views
+    hash
   }
 }
 `

@@ -29,6 +29,7 @@ query Query {
     savedEntries
     favoriteEntries
     visitedEntries
+    hash
   }
 }
 `

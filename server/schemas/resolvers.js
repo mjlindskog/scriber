@@ -115,8 +115,8 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addEntry: async (parent, { username, title, body, subject }) => {
-            const newEntry = await Entry.create({ username, title, body, subject });
+        addEntry: async (parent, { authors, title, body, subject }) => {
+            const newEntry = await Entry.create({ authors, title, body, subject });
 
             if (!newEntry) {
                 console.error('Error Saving Entry 🥲')
