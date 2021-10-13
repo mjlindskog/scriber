@@ -1,86 +1,140 @@
-import React, { useEffect, useState } from "react";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Button } from "@mui/material";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { useMutation } from '@apollo/client';
+import { ADD_ENTRY } from '../utils/mutations';
+import { ME } from './../utils/queries';
+import { useQuery } from '@apollo/client';
+import CreateIcon from '@mui/icons-material/Create';
 
 
-export default function App() {
+export default function WritePage() {
     const theme = createTheme();
+    const [addEntry, { err, entry }] = useMutation(ADD_ENTRY);
 
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+    const { loading, error, data } = useQuery(ME)
+
+    if (loading) {
+        return (
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="sm">
+                    <CssBaseline />
+                    <h1>loading!</h1>
+                </Container>
+            </ThemeProvider>
+        )
+    }
+    if (error) {
+        console.log(error)
+        return (
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="sm">
+                    <CssBaseline />
+                    <h1>Error! Must be logged in!</h1>
+                </Container>
+            </ThemeProvider>
+        )
+    }
+
+    /*
     useEffect(() => {
-        console.log(editorState);
+        console.log(editorState.getCurrentContent().getPlainText());
     }, [editorState]);
+    */
+    const handleSave = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+
+        let user = JSON.stringify([data.me.hash])
+        console.log(user);
+        const response = await addEntry({
+
+            variables: {
+                "authors": user,
+                "title": formData.get('title'),
+                "subject": formData.get('subject'),
+                "body": formData.get('entry')
+            }
+        })
+        window.location.assign('/');
+    }
+
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="md">
                 <CssBaseline />
-                <Typography>
-                    <h1>Write.</h1>
-                </Typography>
                 <Box
                     sx={{
-                        marginTop: 10,
+                        marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        border: 1,
-                        borderColor: 'grey.500',
-                        borderRadius: '10px',
-                        backgroundColor: 'white',
-                        height: '66vh'
+                        alignItems: 'center',
                     }}
                 >
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                    }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            id="title"
-                            label="Title"
-                            name="title"
-                            autoFocus
-                            sx={{ margin: '1.5rem', borderRadius: '6px' }}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            id="Subject"
-                            label="Subject"
-                            name="subject"
-                            autoFocus
-                            sx={{ margin: '1.5rem', borderRadius: '6px' }}
-                        />
+                    <Avatar sx={{ m: 1, bgcolor: 'grey.300' }}>
+                        <CreateIcon />
+                    </Avatar>
+                    <Box component="form" noValidate onSubmit={handleSave} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    name="title"
+                                    required
+                                    fullWidth
+                                    id="title"
+                                    label="Title"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="subject"
+                                    label="Subject"
+                                    name="subject"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="entry"
+                                    label="Thoughts"
+                                    id="entry"
+                                    multiline
+                                    rows={10}
+                                    defaultValue=""
+                                    variant="filled"
+                                />
+                            </Grid>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2, borderRadius: '6px', zIndex: '0', width: '150px' }}
+                            elevation={0}
+                        >
+                            Save
+                        </Button>
                     </Box>
-                    <div style={{ padding: '2px', minHeight: '400px', borderRadius: '10px' }}>
-                        <Editor
-                            editorState={editorState}
-                            onEditorStateChange={setEditorState}
-                        />
-                    </div>
                 </Box>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2, borderRadius: '6px', zIndex: '0', width: '150px' }}
-                    elevation={0}
-                >
-                    Save
-                </Button>
             </Container>
         </ThemeProvider >
     );
