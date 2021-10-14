@@ -6,7 +6,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TOP_FIVE, ME } from './../utils/queries';
+import { ME } from './../utils/queries';
 import { useQuery } from '@apollo/client'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import '@fontsource/roboto/300.css';
@@ -25,7 +25,7 @@ const subjectStyle = {
 }
 
 function ArticleAccordion(article) {
-    article = article.article
+    article = JSON.parse(article.article)
 
     return (
         <div>

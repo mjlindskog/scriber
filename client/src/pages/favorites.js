@@ -25,7 +25,7 @@ const subjectStyle = {
 }
 
 function ArticleAccordion(article) {
-    article = article.article
+    article = JSON.parse(article.article)
 
     return (
         <div>
