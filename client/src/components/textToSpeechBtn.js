@@ -8,33 +8,33 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 
 const TextToSpeechBtn =  () => {
 
-    const [value, setValue] = useState('');
-    const { speak } = useSpeechSynthesis();
+    // const [value, setValue] = useState('');
+    // const { speak } = useSpeechSynthesis();
 
-    const handleButtonSubmit = async (event) => {
-        event.preventDefault();
+    // const handleButtonSubmit = async (event) => {
+    //     event.preventDefault();
 
 
 
         
-    };
+    // };
 
-    return (
+    // return (
 
-        <div>
-            <textarea
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-            />
-            <Button 
-                color="secondary" 
-                variant="contained"
-                onClick={() => speak({ text: value })}
-                startIcon={<VolumeUpIcon />}>
-                Read It Back
-            </Button>
-        </div>
-    )
+    //     <div>
+    //         <textarea
+    //             value={value}
+    //             onChange={(event) => setValue(event.target.value)}
+    //         />
+    //         <Button 
+    //             color="secondary" 
+    //             variant="contained"
+    //             onClick={() => speak({ text: value })}
+    //             startIcon={<VolumeUpIcon />}>
+    //             Read It Back
+    //         </Button>
+    //     </div>
+    // )
 
 };
 

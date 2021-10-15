@@ -18,10 +18,10 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-draft-wysiwyg": "^1.14.7",
-    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "react-speech-kit": "^3.0.1",
+    "request": "^2.88.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -47,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "voice-rss": "^3.0.0"
   }
 }

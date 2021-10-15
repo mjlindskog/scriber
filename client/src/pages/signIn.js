@@ -34,26 +34,21 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    try {
-      const response = await loginUser({
-        variables: {
-          loginEmail: data.get('email'),
-          loginPassword: data.get('password'),
-        }
-      });
-      //console.log(response.data.login)
-      if (!response.data.login.token) {
-        throw new Error('something went wrong!');
+    const response = await loginUser({
+      variables: {
+        email: data.get('email'),
+        password: data.get('password'),
       }
-
-      const { token, user } = response.data.login;
-      //console.log(user);
-      Auth.login(token);
-      console.log(user);
-    } catch (err) {
-      const output = JSON.stringify(err);
-      console.log(output)
+    });
+    //console.log(response.data.login)
+    if (!response.data.userLogin.token) {
+      throw new Error('something went wrong!');
     }
+
+    const { token, user } = response.data.userLogin;
+    //console.log(user);
+    Auth.login(token);
+    console.log(user);
   };
 
   return (
