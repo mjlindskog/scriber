@@ -17,17 +17,17 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
 `
 
 export const ADD_ENTRY = gql`
-    mutation Mutation($authors: String!, $title: String!, $body: String!, $subject: String) {
-        addEntry(authors: $authors, title: $title, body: $body, subject: $subject) {
-            authors
-            title
-            body
-            timestamp
-            subject
-            views
-            hash
-        }
-    }
+mutation Mutation($authors: String!, $title: String!, $body: String!, $subject: String) {
+  addEntry(authors: $authors, title: $title, body: $body, subject: $subject) {
+    authors
+    title
+    body
+    timestamp
+    subject
+    views
+    hash
+  }
+}
 `
 
 export const EDIT_ENTRY = gql`
@@ -59,17 +59,18 @@ export const DELETE_ENTRY = gql`
 `
 
 export const USER_LOGIN = gql`
-    mutation Mutation($email: String!, $password: String!) {
-        userLogin(email: $email, password: $password) {
-            token
-            user {
-                username
-                email
-                savedEntries
-                favoriteEntries
-                visitedEntries
-                hash
-            }
-        }
+
+mutation Mutation($email: String!, $password: String!) {
+  userLogin(email: $email, password: $password) {
+    token
+    user {
+      username
+      email
+      savedEntries
+      favoriteEntries
+      visitedEntries
+      hash
     }
+  }
+}
 `

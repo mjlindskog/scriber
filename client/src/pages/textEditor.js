@@ -30,6 +30,7 @@ export default function WritePage() {
     const theme = createTheme();
     const [addEntry, { err, entry }] = useMutation(ADD_ENTRY);
 
+
     const { loading, error, data } = useQuery(ME);
 
     const [value, setValue] = useState('');
@@ -80,7 +81,6 @@ export default function WritePage() {
         window.location.assign('/');
     }
 
- 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="md">
@@ -128,9 +128,9 @@ export default function WritePage() {
                                     rows={10}
                                     defaultValue=""
                                     variant="filled"
+
                                     value={value}
-                                    onChange={(event) => setValue(event.target.value)}
-                                />
+                                    onChange={(event) => setValue(event.target.value)}/>
                             </Grid>
                         </Grid>
                         <Button
@@ -141,6 +141,7 @@ export default function WritePage() {
                         >
                             Save
                         </Button>
+
                         <Button 
                             color="secondary" 
                             variant="contained"
@@ -150,6 +151,7 @@ export default function WritePage() {
                             startIcon={<VolumeUpIcon />}>
                             Read Back your Thoughts
                         </Button>
+
                     </Box>
                 </Box>
             </Container>

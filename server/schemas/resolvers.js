@@ -62,6 +62,7 @@ const resolvers = {
             if (context.user) {
                 let res = await User.findOne({ email: context.user.email });
                 console.log(res);
+              
                 // let favEnt = await Entry.findOne({ hash: res.favoriteEntries[0] });
                 // favEnt.authors = [context.user.username]
                 // console.log('favEnt')
@@ -70,6 +71,7 @@ const resolvers = {
                 // let savEnt = await Entry.findOne({ hash: res.savedEntries[0] })
                 // savEnt.authors = [context.user.username]
                 // res.savedEntries = [JSON.stringify(savEnt)];
+
 
                 return res
             }

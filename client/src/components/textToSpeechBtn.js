@@ -4,8 +4,6 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 
 import { useSpeechSynthesis } from 'react-speech-kit';
 
-
-
 const TextToSpeechBtn =  () => {
 
     // const [value, setValue] = useState('');
@@ -13,7 +11,6 @@ const TextToSpeechBtn =  () => {
 
     // const handleButtonSubmit = async (event) => {
     //     event.preventDefault();
-
 
 
         
