@@ -17,15 +17,15 @@ mutation Mutation($username: String!, $email: String!, $password: String!) {
 `
 
 export const ADD_ENTRY = gql`
-    mutation AddEntryMutation($addEntryUsername: String!, $addEntryTitle: String!, $addEntryBody: String!, $addEntrySubject: String) {
-        addEntry(username: $addEntryUsername, title: $addEntryTitle, body: $addEntryBody, subject: $addEntrySubject) {
-            _id
+    mutation Mutation($authors: String!, $title: String!, $body: String!, $subject: String) {
+        addEntry(authors: $authors, title: $title, body: $body, subject: $subject) {
             authors
             title
             body
             timestamp
-            views
             subject
+            views
+            hash
         }
     }
 `
@@ -59,12 +59,16 @@ export const DELETE_ENTRY = gql`
 `
 
 export const USER_LOGIN = gql`
-    mutation UserLoginMutation($userLoginEmail: String!, $userLoginPassword: String!) {
-        userLogin(email: $userLoginEmail, password: $userLoginPassword) {
+    mutation Mutation($email: String!, $password: String!) {
+        userLogin(email: $email, password: $password) {
             token
             user {
-            _id
-            username
+                username
+                email
+                savedEntries
+                favoriteEntries
+                visitedEntries
+                hash
             }
         }
     }

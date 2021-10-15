@@ -9,7 +9,6 @@ export const QUERY_ENTRIES = gql`
             subject
             timestamp
             views
-            public
         }
     }
 `
@@ -30,6 +29,7 @@ query Query {
     savedEntries
     favoriteEntries
     visitedEntries
+    hash
   }
 }
 `

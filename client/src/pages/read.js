@@ -1,28 +1,18 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TOP_FIVE, QUERY_USERS } from './../utils/queries';
+import { TOP_FIVE, ME, QUERY_ENTRIES } from './../utils/queries';
 import { useQuery } from '@apollo/client'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
 const theme = createTheme();
 
 const accordionStyle = {
@@ -60,8 +50,13 @@ function ArticleAccordion(article) {
     )
 }
 
-export default function HomePage() {
-    const { loading, error, data } = useQuery(TOP_FIVE)
+export default function ReadPage(articleHash) {
+    console.log(articleHash.articleHash)
+    const { loading, error, data } = useQuery(QUERY_ENTRIES, {
+        variables: {
+            "hash": articleHash.articleHash
+        },
+    })
     if (loading) {
         return (
             <ThemeProvider theme={theme}>
@@ -83,17 +78,19 @@ export default function HomePage() {
             </ThemeProvider>
         )
     }
-    const topFive = data.getTopFive
-    console.log(topFive);
+    //const topFive = data.getTopFive
+    //console.log(topFive);
+    //console.log(data.me);
+    let article = data.getEntry
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
-                <h1>Welcome!</h1>
-                <h2>Check out these stories...</h2>
-                {topFive.map((article) =>
-                    <ArticleAccordion article={article} />
-                )}
+                <h1>{article.title}</h1>
+                <h2>{article.authors[0]}</h2>
+                <Typography>
+                    {article.body}
+                </Typography>
             </Container>
         </ThemeProvider>
     );

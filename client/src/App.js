@@ -10,6 +10,7 @@ import NavBar from './components/NavBar'
 import HomePage from './pages/home'
 import Profile from './pages/profile'
 import Favorites from './pages/favorites'
+import Read from './pages/read'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -52,6 +53,9 @@ export default function App() {
         </Route>
         <Route exact path="/favorites">
           <Favorites />
+        </Route>
+        <Route exact path="/read">
+          <Read articleHash={"bce7cfea180c06a9721d9620cca36d323c36fce65e41a7fd1019e262ca36885a"} />
         </Route>
       </Router>
       <Copyright />
