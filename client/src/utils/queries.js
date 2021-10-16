@@ -11,7 +11,6 @@ query Query($hash: String!) {
     views
   }
 }
-
 `
 
 export const QUERY_USERS = gql`

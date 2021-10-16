@@ -59,7 +59,6 @@ export const DELETE_ENTRY = gql`
 `
 
 export const USER_LOGIN = gql`
-
 mutation Mutation($email: String!, $password: String!) {
   userLogin(email: $email, password: $password) {
     token

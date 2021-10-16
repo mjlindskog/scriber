@@ -62,17 +62,17 @@ const resolvers = {
             if (context.user) {
                 let res = await User.findOne({ email: context.user.email });
                 console.log(res);
-              
-                // let favEnt = await Entry.findOne({ hash: res.favoriteEntries[0] });
-                // favEnt.authors = [context.user.username]
-                // console.log('favEnt')
-                // console.log(favEnt);
-                // res.favoriteEntries = [JSON.stringify(favEnt)]
-                // let savEnt = await Entry.findOne({ hash: res.savedEntries[0] })
-                // savEnt.authors = [context.user.username]
-                // res.savedEntries = [JSON.stringify(savEnt)];
+                let favEnt = await Entry.findOne({ hash: res.favoriteEntries[0] });
+                if (favEnt) {
+                    favEnt.authors = [context.user.username]
+                    res.favoriteEntries = [JSON.stringify(favEnt)]
+                }
 
-
+                let savEnt = await Entry.findOne({ hash: res.savedEntries[0] })
+                if (savEnt) {
+                    savEnt.authors = [context.user.username]
+                    res.savedEntries = [JSON.stringify(savEnt)];
+                }
                 return res
             }
             console.error('Authentication error')
@@ -128,8 +128,16 @@ const resolvers = {
             return { token, user };
         },
         addEntry: async (parent, { authors, title, body, subject }) => {
+            authors = JSON.parse(authors)
             const newEntry = await Entry.create({ authors, title, body, subject });
-
+            writer = authors[0]
+            console.log(writer);
+            let updateUser = await User.findOne({ hash: writer })
+            console.log(updateUser)
+            updateUser.savedEntries.push(newEntry.hash)
+            updateUser = await User.updateOne({ hash: writer }, updateUser)
+            //redis.set(newEntry.hash, JSON.stringify(newEntry), 'ex', cacheLength)
+            //redis.set(updateUser.hash, JSON.stringify(updateUser), 'ex', cacheLength)
             if (!newEntry) {
                 console.error('Error Saving Entry 🥲')
             }

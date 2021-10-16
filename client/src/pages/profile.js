@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ME } from './../utils/queries';
 import { useQuery } from '@apollo/client'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -26,7 +27,9 @@ const subjectStyle = {
 
 function ArticleAccordion(article) {
     article = JSON.parse(article.article)
-
+    console.log(article.hash);
+    console.log(article.hash);
+    let link = `read/${article.hash}`
     return (
         <div>
             <Accordion elevation={0} sx={accordionStyle}>
@@ -39,11 +42,17 @@ function ArticleAccordion(article) {
                         <Typography sx={subjectStyle}>{article.subject}</Typography>
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails sx={{ backgroundColor: 'grey.100' }}>
+                <AccordionDetails sx={{ backgroundColor: 'grey.100', display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-between' }}>
                     <Typography>
                         <Typography sx={subjectStyle}>Author:</Typography>
                         {article.authors}
                     </Typography>
+                    <Button variant="contained" href={link} sx={{
+                        marginTop: '0.5rem',
+                        marginBottom: '0.5rem'
+                    }}>
+                        Read
+                    </Button>
                 </AccordionDetails>
             </Accordion>
         </div >

@@ -54,8 +54,7 @@ export default function App() {
         <Route exact path="/favorites">
           <Favorites />
         </Route>
-        <Route exact path="/read">
-          <Read articleHash={"bce7cfea180c06a9721d9620cca36d323c36fce65e41a7fd1019e262ca36885a"} />
+        <Route exact path="/read/:id" component={Read}>
         </Route>
       </Router>
       <Copyright />

@@ -18,13 +18,14 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
-/*
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-*/
+
+
 //START SERVER
-const port = 4015;
+const port = 4051;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
@@ -43,6 +44,6 @@ async function startApolloServer(typeDefs, resolvers) {
   });
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise(resolve => httpServer.listen({ port: 4016 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:${4016}${server.graphqlPath}`);
+  await new Promise(resolve => httpServer.listen({ port: 4052 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${4052}${server.graphqlPath}`);
 }
