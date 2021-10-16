@@ -1,38 +1,36 @@
-import React, {useState} from 'react';
-import { Button } from '@mui/material';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import React from 'react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
+import { textToSpeech } from '../../utils/API'
 
-import { useSpeechSynthesis } from 'react-speech-kit';
+const testTitle = 'lorem'
+const testMessage = 'lorem ipsum'
 
-const TextToSpeechBtn =  () => {
-
-    // const [value, setValue] = useState('');
-    // const { speak } = useSpeechSynthesis();
-
-    // const handleButtonSubmit = async (event) => {
-    //     event.preventDefault();
+const textToSpeechBtn = () => {
 
 
-        
-    // };
+    const handleButtonSubmit = async (event) => {
+        event.preventDefault();
 
-    // return (
+        const testContent = [testTitle, testMessage];
 
-    //     <div>
-    //         <textarea
-    //             value={value}
-    //             onChange={(event) => setValue(event.target.value)}
-    //         />
-    //         <Button 
-    //             color="secondary" 
-    //             variant="contained"
-    //             onClick={() => speak({ text: value })}
-    //             startIcon={<VolumeUpIcon />}>
-    //             Read It Back
-    //         </Button>
-    //     </div>
-    // )
+
+        textToSpeech(testContent);
+
+
+    };
+
+    return (
+        <div>
+            <Button
+                isLoading
+                loadingText="Playing"
+                colorScheme="blackAlpha"
+                onClick={handleButtonSubmit}>
+                Text to Speech
+            </Button>
+        </div>
+    )
 
 };
 
-export default TextToSpeechBtn;
+export default textToSpeechBtn;

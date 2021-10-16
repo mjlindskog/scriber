@@ -3,13 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '@fontsource/roboto/300.css';
@@ -18,21 +13,21 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { useMutation } from '@apollo/client';
 import { ADD_ENTRY } from '../utils/mutations';
-import { ME } from '../utils/queries';
+import { ME } from './../utils/queries';
 import { useQuery } from '@apollo/client';
 import CreateIcon from '@mui/icons-material/Create';
-
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import { useState } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
+
+
+
 
 export default function WritePage() {
     const theme = createTheme();
     const [addEntry, { err, entry }] = useMutation(ADD_ENTRY);
 
-
-    const { loading, error, data } = useQuery(ME);
-
+    const { loading, error, data } = useQuery(ME)
     const [value, setValue] = useState('');
     const { speak } = useSpeechSynthesis();
 
@@ -81,6 +76,7 @@ export default function WritePage() {
         window.location.assign('/');
     }
 
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="md">
@@ -128,9 +124,8 @@ export default function WritePage() {
                                     rows={10}
                                     defaultValue=""
                                     variant="filled"
-
                                     value={value}
-                                    onChange={(event) => setValue(event.target.value)}/>
+                                    onChange={(event) => setValue(event.target.value)} />
                             </Grid>
                         </Grid>
                         <Button
@@ -141,9 +136,8 @@ export default function WritePage() {
                         >
                             Save
                         </Button>
-
-                        <Button 
-                            color="secondary" 
+                        <Button
+                            color="secondary"
                             variant="contained"
                             sx={{ ml: 2, mt: 3, mb: 2, borderRadius: '6px', zIndex: '0' }}
                             elevation={0}
@@ -151,7 +145,6 @@ export default function WritePage() {
                             startIcon={<VolumeUpIcon />}>
                             Read Back your Thoughts
                         </Button>
-
                     </Box>
                 </Box>
             </Container>

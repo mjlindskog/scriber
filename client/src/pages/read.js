@@ -5,14 +5,20 @@ import Container from '@mui/material/Container';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TOP_FIVE, ME, QUERY_ENTRIES } from './../utils/queries';
+import { useParams } from 'react-router-dom';
+import { QUERY_ENTRIES } from './../utils/queries';
 import { useQuery } from '@apollo/client'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import CreateIcon from '@mui/icons-material/Create';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import { useState } from 'react';
+import { useSpeechSynthesis } from 'react-speech-kit';
 const theme = createTheme();
 
 const accordionStyle = {
@@ -51,10 +57,12 @@ function ArticleAccordion(article) {
 }
 
 export default function ReadPage(articleHash) {
-    console.log(articleHash.articleHash)
+    const [value, setValue] = useState('');
+    const { speak } = useSpeechSynthesis();
+    const { id } = useParams();
     const { loading, error, data } = useQuery(QUERY_ENTRIES, {
         variables: {
-            "hash": articleHash.articleHash
+            "hash": id
         },
     })
     if (loading) {
@@ -78,9 +86,7 @@ export default function ReadPage(articleHash) {
             </ThemeProvider>
         )
     }
-    //const topFive = data.getTopFive
-    //console.log(topFive);
-    //console.log(data.me);
+
     let article = data.getEntry
     return (
         <ThemeProvider theme={theme}>
@@ -91,6 +97,15 @@ export default function ReadPage(articleHash) {
                 <Typography>
                     {article.body}
                 </Typography>
+                <Button
+                    color="secondary"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, borderRadius: '6px', zIndex: '0' }}
+                    elevation={0}
+                    onClick={() => speak({ text: article.body })}
+                    startIcon={<VolumeUpIcon />}>
+                    Hear this story
+                </Button>
             </Container>
         </ThemeProvider>
     );

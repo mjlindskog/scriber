@@ -37,7 +37,7 @@ const EntrySchema = new Schema({
     },
     public: {
         type: Boolean,
-        default: false
+        default: true
     }
 });
 
