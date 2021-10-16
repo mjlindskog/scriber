@@ -9,7 +9,7 @@ const http = require('http')
 const { authMiddleware } = require('./utils/auth')
 
 const app = express();
-const PORT = process.env.PORT || 4015;
+const PORT = process.env.PORT;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -45,5 +45,5 @@ async function startApolloServer(typeDefs, resolvers) {
   await server.start();
   server.applyMiddleware({ app });
   await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
-  console.log(`🚀 Server ready at http://localhost:${4052}${server.graphqlPath}`);
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 }
