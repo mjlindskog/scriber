@@ -26,7 +26,7 @@ app.get('*', (req, res) => {
 
 //START SERVER
 const port = 4051;
-app.listen(PORT, () => {
+app.listen(port, () => {
   console.log(`App running on port ${PORT}...`);
 });
 
