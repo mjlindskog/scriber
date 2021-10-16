@@ -19,7 +19,7 @@ Save your drafts until they’re ready to post, or allow the text to speech modu
 ## Installation
 For general use, the application can be used right from the deployed link [https://project_three.herokuapp.com](https://project_three.herokuapp.com)
 
-If you wanted to work on development of the app, you would go to [https://github.com/EthanHarsh/project_three](https://github.com/EthanHarsh/project_three) and clone the repo.  You would need to have a [MongoDB server](https://www.mongodb.com/try/download/community) and [Redis](https://redis.io/) already installed on your machine.  From your local computer, you would need to run the following commands:
+If you wanted to work on development of the app, you would go to [https://github.com/EthanHarsh/project_three](https://github.com/EthanHarsh/project_three) and clone/fork the repo.  You would need to have a [MongoDB server](https://www.mongodb.com/try/download/community) and [Redis](https://redis.io/) already installed and running on your machine.  From your local computer, you would need to run the following commands:
 ```
 npm run install
 cd server
@@ -27,16 +27,12 @@ node seeds/seed.js
 cd ..
 npm run start
 ```
-In a second terminal, you'll want to start your MongoDB server using:
-```
-mongod
-```
-In a third terminal, you'll want to run:
+In a second terminal, you'll want to start your front end using:
 ```
 cd client
 npm run start
 ```
-In your last terminal, you'll need to run Redis.
+
 
 ## Technologies Used
 
