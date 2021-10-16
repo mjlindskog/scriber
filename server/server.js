@@ -26,8 +26,8 @@ app.get('*', (req, res) => {
 
 //START SERVER
 const port = 4051;
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
+app.listen(PORT, () => {
+  console.log(`App running on port ${PORT}...`);
 });
 
 startApolloServer(typeDefs, resolvers)
