@@ -9,7 +9,7 @@ const http = require('http')
 const { authMiddleware } = require('./utils/auth')
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4015;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,9 +26,13 @@ app.get('*', (req, res) => {
 
 //START SERVER
 const port = 4051;
-app.listen(port, () => {
-  console.log(`App running on port ${PORT}...`);
-});
+try {
+  app.listen(port, () => {
+    console.log(`App running on port ${port}...`);
+  });
+} catch (error) {
+  console.error(`Error starting server: ${error.message}`);
+}
 
 startApolloServer(typeDefs, resolvers)
 

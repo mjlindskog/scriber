@@ -18,10 +18,7 @@ import { useQuery } from '@apollo/client';
 import CreateIcon from '@mui/icons-material/Create';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import { useState } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
-
-
-
+import { useSpeechSynthesis } from 'react-speech-hooks';
 
 export default function WritePage() {
     const theme = createTheme();

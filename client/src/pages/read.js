@@ -15,10 +15,9 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import CreateIcon from '@mui/icons-material/Create';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import { useState } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis } from 'react-speech-hooks';
 const theme = createTheme();
 
 const accordionStyle = {
