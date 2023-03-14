@@ -20,7 +20,7 @@ Save your drafts until they’re ready to post, or allow the text to speech modu
 
 ## Installation
 
-For general use, the application can be used right from the deployed link [https://powerful-shore-38656.herokuapp.com/](https://scriber.marklindskog.com)
+For general use, the application can be used right from the deployed link [https://scriber.marklindskog.com](https://powerful-shore-38656.herokuapp.com/)
 
 If you wanted to work on development of the app, you would go to [https://github.com/EthanHarsh/project_three](https://github.com/EthanHarsh/project_three) or [https://github.com/mjlindskog/scriber](https://github.com/mjlindskog/scriber)and clone/fork the repo. You would need to have a [MongoDB server](https://www.mongodb.com/try/download/community) and [Redis](https://redis.io/) already installed and running on your machine. From your local computer, you would need to run the following commands:
 
