@@ -10,7 +10,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@ap
 
 // local host uri: 'http://localhost:4015/graphql'
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URI,
   opts: { mode:'cors' }
 });
 

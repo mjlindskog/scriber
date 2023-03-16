@@ -9,7 +9,7 @@ const http = require('http')
 const { authMiddleware } = require('./utils/auth')
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4051;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,17 +25,6 @@ app.get('*', (req, res) => {
 
 
 //START SERVER
-const port = 4051;
-try {
-  app.listen(port, () => {
-    console.log(`App running on port ${port}...`);
-  });
-} catch (error) {
-  console.error(`Error starting server: ${error.message}`);
-}
-
-startApolloServer(typeDefs, resolvers)
-
 async function startApolloServer(typeDefs, resolvers) {
   //console.log(typeDefs)
   //console.log(resolvers)
@@ -51,3 +40,11 @@ async function startApolloServer(typeDefs, resolvers) {
   await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
   console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
 }
+
+db.once('open', () => {
+  console.log('connected to database');
+
+  startApolloServer(typeDefs, resolvers)
+});
+
+db.on('error', console.error.bind(console, 'connection error:'));
