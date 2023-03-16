@@ -7,8 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import { setContext } from "@apollo/client/link/context";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 
+
+// local host uri: 'http://localhost:4015/graphql'
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4015/graphql',
+  uri: '/graphql',
   opts: { mode:'cors' }
 });
 

@@ -21,9 +21,7 @@
   },
   "homepage": "https://github.com/EthanHarsh/project_three#readme",
   "dependencies": {
-    "concurrently": "^6.3.0",
-    "react-speech-hooks": "^3.0.2",
-    "react-speech-kit": "^3.0.1"
+    "concurrently": "^6.3.0"
   },
   "devDependencies": {
     "typescript": "^4.9.5"

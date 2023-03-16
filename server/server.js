@@ -9,7 +9,7 @@ const http = require('http')
 const { authMiddleware } = require('./utils/auth')
 
 const app = express();
-const PORT = process.env.PORT || 4015;
+const PORT = process.env.PORT;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
