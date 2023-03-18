@@ -53,6 +53,7 @@
     "dotenv-webpack": "^8.0.1"
   },
   "engines": {
-    "node": "18.12"
+    "node": "18.x",
+    "openssl": "1.1.x"
   }
 }
