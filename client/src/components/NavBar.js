@@ -25,6 +25,9 @@ import Link from '@mui/material/Link';
 import Auth from '../utils/auth';
 import LoginIcon from '@mui/icons-material/Login';
 
+import { Image } from 'mui-image';
+import LOGO from '../img/logo40.png';
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -109,8 +112,8 @@ export default function MiniDrawer() {
         return (
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "white", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-                    <Toolbar>
+                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "primary", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                    <Toolbar sx={{ background: "primary" }}>
                         <IconButton
                             aria-label="open drawer"
                             onClick={handleDrawerOpen}
@@ -118,18 +121,19 @@ export default function MiniDrawer() {
                             sx={{
                                 marginRight: '36px',
                                 ...(open && { display: 'none' }),
-                                color: 'black'
+                                color: 'secondary.main'
                             }}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" noWrap component="div" sx={{ color: 'black' }}>
+                        <Image src={LOGO} alt="Scriber logo, quotation marks" width={15}/>
+                        <Typography variant="h6" noWrap component="div" sx={{ color: 'white', paddingLeft: "3px" }}>
                             Scriber
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open}>
-                    <DrawerHeader>
+                <Drawer variant="permanent" open={open} >
+                    <DrawerHeader sx={{ bgcolor: "secondary.main" }}>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                         </IconButton>
@@ -137,9 +141,9 @@ export default function MiniDrawer() {
                     <Divider />
                     <List>
                         <Link href='/'>
-                            <ListItem button key={'Home'}>
+                            <ListItem button key={'Home'} sx={{ color: "primary" }}>
                                 <ListItemIcon>
-                                    <HomeIcon />
+                                    <HomeIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Home'} />
                             </ListItem>
@@ -147,7 +151,7 @@ export default function MiniDrawer() {
                         <Link href='/favorites'>
                             <ListItem button key={'Favorites'}>
                                 <ListItemIcon>
-                                    <StarIcon />
+                                    <StarIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Favorites'} />
                             </ListItem>
@@ -155,7 +159,7 @@ export default function MiniDrawer() {
                         <Link href='/write'>
                             <ListItem button key={'Write'}>
                                 <ListItemIcon>
-                                    <CreateIcon />
+                                    <CreateIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Write'} />
                             </ListItem>
@@ -166,7 +170,7 @@ export default function MiniDrawer() {
                         <Link href='/profile'>
                             <ListItem button key={'Profile'}>
                                 <ListItemIcon>
-                                    <AccountCircleIcon />
+                                    <AccountCircleIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Profile'} />
                             </ListItem>
@@ -174,7 +178,7 @@ export default function MiniDrawer() {
                         <Link href='#'>
                             <ListItem button key={'Sign Out'} onClick={Auth.logout}>
                                 <ListItemIcon>
-                                    <LogoutIcon />
+                                    <LogoutIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Sign Out'} />
                             </ListItem>
@@ -190,7 +194,7 @@ export default function MiniDrawer() {
         return (
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "white", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                <AppBar position="fixed" open={open} elevation={0} sx={{ background: "primary", borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
                     <Toolbar>
                         <IconButton
                             aria-label="open drawer"
@@ -199,18 +203,19 @@ export default function MiniDrawer() {
                             sx={{
                                 marginRight: '36px',
                                 ...(open && { display: 'none' }),
-                                color: 'black'
+                                color: 'white'
                             }}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" noWrap component="div" sx={{ color: 'black' }}>
+                        <Image src={LOGO} alt="Scriber logo, quotation marks" width={15}/>
+                        <Typography variant="h6" noWrap component="div" sx={{ color: 'white', paddingLeft: "3px" }}>
                             Scriber
                         </Typography>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>
-                    <DrawerHeader>
+                    <DrawerHeader sx={{ bgcolor: "secondary.main" }}>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                         </IconButton>
@@ -220,7 +225,7 @@ export default function MiniDrawer() {
                         <Link href='/'>
                             <ListItem button key={'Home'}>
                                 <ListItemIcon>
-                                    <HomeIcon />
+                                    <HomeIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Home'} />
                             </ListItem>
@@ -231,7 +236,7 @@ export default function MiniDrawer() {
                         <Link href='/signin'>
                             <ListItem button key={'Sign In'}>
                                 <ListItemIcon>
-                                    <LoginIcon />
+                                    <LoginIcon sx={{ color: "primary.main" }}/>
                                 </ListItemIcon>
                                 <ListItemText primary={'Sign In'} />
                             </ListItem>

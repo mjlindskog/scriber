@@ -19,5 +19,8 @@
     "ioredis": "^4.27.10",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10"
+  },
+  "engines": {
+    "node": "18.12"
   }
 }

@@ -15,6 +15,20 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#505050',
+    },
+    secondary: {
+      main: '#dd4d00',
+    },
+  },
+});
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center" sx={{
@@ -32,6 +46,7 @@ function Copyright() {
 export default function App() {
   return (
     <main>
+      <ThemeProvider theme={theme}>
       <NavBar />
       <Router>
         <Route exact path="/">
@@ -56,6 +71,7 @@ export default function App() {
         </Route>
       </Router>
       <Copyright />
+      </ThemeProvider>
     </main>
   );
 }

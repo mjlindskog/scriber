@@ -21,7 +21,18 @@ import { useState } from 'react';
 import { useSpeechSynthesis } from 'react-speech-hooks';
 
 export default function WritePage() {
-    const theme = createTheme();
+    const theme = createTheme(
+        {
+            palette: {
+              primary: {
+                main: '#000000',
+              },
+              secondary: {
+                main: '#dd4d00',
+              },
+            },
+          }
+    );
     const [addEntry, { err, entry }] = useMutation(ADD_ENTRY);
 
     const { loading, error, data } = useQuery(ME)
@@ -86,7 +97,7 @@ export default function WritePage() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'grey.300' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <CreateIcon />
                     </Avatar>
                     <Box component="form" noValidate onSubmit={handleSave} sx={{ mt: 3 }}>
@@ -126,6 +137,7 @@ export default function WritePage() {
                             </Grid>
                         </Grid>
                         <Button
+                            color="primary"
                             type="submit"
                             variant="contained"
                             sx={{ mt: 3, mb: 2, borderRadius: '6px', zIndex: '0', width: '150px' }}
