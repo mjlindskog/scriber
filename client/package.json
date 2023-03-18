@@ -54,6 +54,6 @@
   },
   "engines": {
     "node": "18.x",
-    "openssl": "1.1.x"
+    "openssl": "1.1.1"
   }
 }
