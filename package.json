@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "engines": {
     "node": "18.x",
-    "npm": ">=6.14.0"
+    "npm": ">=6.14.0",
+    "openssl": "1.1.1"
   },
   "scripts": {
     "start": "node server/server.js",
