@@ -18,7 +18,18 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-const theme = createTheme();
+const theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#000000',
+      },
+      secondary: {
+        main: '#f4883c',
+      },
+    },
+  }
+);
 
 export default function SignUp() {
   const [addUser, { data, error }] = useMutation(ADD_USER);
@@ -63,7 +74,7 @@ export default function SignUp() {
             backgroundColor: 'white'
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'grey.400' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -115,6 +126,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+              color="secondary"
               type="submit"
               fullWidth
               variant="contained"

@@ -2,7 +2,7 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://powerful-shore-38656.herokuapp.com/)
 
-![ScriberScreenshots](https://user-images.githubusercontent.com/78819957/137565697-dd332b35-8eed-47a9-bb8f-7c955f798015.png)
+![ScriberScreenshots](https://github.com/mjlindskog/scriber/blob/main/home_page.png)(https://github.com/mjlindskog/scriber/blob/main/singin_page.png)(https://github.com/mjlindskog/scriber/blob/main/thoughts_page.png)
 
 ## Description
 

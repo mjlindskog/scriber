@@ -203,7 +203,7 @@ export default function MiniDrawer() {
                             sx={{
                                 marginRight: '36px',
                                 ...(open && { display: 'none' }),
-                                color: 'white'
+                                color: 'secondary.main'
                             }}
                         >
                             <MenuIcon />
