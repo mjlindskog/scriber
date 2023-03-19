@@ -28,7 +28,7 @@ export default function WritePage() {
                 main: '#000000',
               },
               secondary: {
-                main: '#dd4d00',
+                main: '#f4883c',
               },
             },
           }
